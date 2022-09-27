@@ -7,7 +7,7 @@ const ProductList = (props) => {
     <div className={classes.products}>
       {props.showProducts.map((product) => (
         <article key={product.id}>
-          <img src={product.images[0]} />
+          <img src={product.images[0]} alt={product.title} loading="lazy" />
           <h3>{product.title}</h3>
           <div className={classes.products__summary}>
             <p>

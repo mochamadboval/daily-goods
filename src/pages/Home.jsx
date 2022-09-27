@@ -1,21 +1,20 @@
 import { Fragment, useEffect, useState } from "react";
 
 import ProductList from "../components/products/ProductList";
-import Pagination from "../components/Pagination";
+import LoadMore from "../components/LoadMore";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [skip, setSkip] = useState(0);
+  const [isAllLoaded, setIsAllLoaded] = useState(false);
+  const [limit, setLimit] = useState(20);
   const [products, setProducts] = useState([]);
-
-  // console.log(products);
 
   const { products: showProducts, total } = products;
 
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch(
-        `https://dummyjson.com/products?limit=20&skip=${skip}`
+        `https://dummyjson.com/products?limit=${limit}`
       );
       const data = await response.json();
 
@@ -24,29 +23,18 @@ const Home = () => {
     };
 
     fetchProducts();
-  }, [skip]);
+  }, [limit]);
 
-  const decreaseSkipHandler = () => {
-    setSkip((state) => {
-      const count = state - 20;
-
-      if (count > -1) {
-        return count;
-      }
-
-      return state;
-    });
-  };
-
-  const increaseSkipHandler = () => {
-    setSkip((state) => {
+  const increaseLimitHandler = () => {
+    setLimit((state) => {
       const count = state + 20;
-
-      if (count < total) {
-        return count;
+      console.log(count);
+      if (count > total) {
+        setIsAllLoaded(true);
+        return state;
       }
 
-      return state;
+      return count;
     });
   };
 
@@ -58,10 +46,7 @@ const Home = () => {
     <Fragment>
       <h2 className="page-title">All Products</h2>
       <ProductList showProducts={showProducts} />
-      <Pagination
-        onDecrease={decreaseSkipHandler}
-        onIncrease={increaseSkipHandler}
-      />
+      {!isAllLoaded && <LoadMore onIncrease={increaseLimitHandler} />}
     </Fragment>
   );
 };
