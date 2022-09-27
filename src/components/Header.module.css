@@ -1,0 +1,33 @@
+.header {
+  align-items: center;
+  background-color: var(--color-white);
+  box-shadow: 0 2px 2px var(--color-shadow);
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.header > h1 > a {
+  color: var(--color-black);
+  display: block;
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.header__cart {
+  padding: 16px 20px;
+}
+
+.header__cart:hover,
+.header__cart.active {
+  color: var(--color-green);
+}
+
+.header__cart:hover > img,
+.header__cart.active > img {
+  filter: invert(36%) sepia(59%) saturate(3164%) hue-rotate(142deg)
+    brightness(91%) contrast(96%);
+}

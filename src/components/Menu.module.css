@@ -1,0 +1,39 @@
+.menu {
+  background-color: var(--color-white);
+  box-shadow: 0 -2px 2px var(--color-shadow);
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.menu > ul {
+  align-items: center;
+  display: flex;
+  list-style: none;
+}
+
+.menu > ul > li {
+  flex: 0 0 calc(100% / 4);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.menu__page {
+  color: var(--color-black);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 7px;
+  text-decoration: none;
+}
+
+.menu__page:hover,
+.menu__page.active {
+  color: var(--color-green);
+}
+
+.menu__page:hover > img,
+.menu__page.active > img {
+  filter: invert(36%) sepia(59%) saturate(3164%) hue-rotate(142deg)
+    brightness(91%) contrast(96%);
+}

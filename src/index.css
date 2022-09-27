@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-black: #171717;
+  --color-green: #059669;
+  --color-white: #fafafa;
+  --color-white-100: #f5f5f5;
+
+  --color-shadow: #e5e5e5;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-white-100);
+  color: var(--color-black);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+}
+
+main {
+  margin-top: 56px;
+}
+
+.loading {
+  padding: 20px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 1.25rem;
+  padding: 20px 20px 0;
+  text-transform: capitalize;
+}
