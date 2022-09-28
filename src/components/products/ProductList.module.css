@@ -15,11 +15,10 @@
 }
 
 .products > article > img {
+  aspect-ratio: 1 / 1;
   border-radius: 10px 10px 0 0;
-  height: 135px;
   object-fit: cover;
   object-position: center;
-  width: 100%;
 }
 
 .products > article > h3 {
