@@ -29,6 +29,11 @@
   padding: 10px;
 }
 
+.products h3 > a {
+  color: var(--color-black);
+  text-decoration: none;
+}
+
 .products__summary {
   align-items: center;
   display: flex;

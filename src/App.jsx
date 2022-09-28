@@ -6,6 +6,7 @@ import Cart from "./pages/Cart";
 import Categories from "./pages/Categories";
 import Category from "./pages/Category";
 import Home from "./pages/Home";
+import Product from "./pages/Product";
 import Wishlist from "./pages/Wishlist";
 
 import Header from "./components/Header";
@@ -34,6 +35,9 @@ const App = () => {
           </Route>
           <Route path="/home">
             <Home />
+          </Route>
+          <Route path="/product/:productId">
+            <Product />
           </Route>
           <Route path="/wishlist">
             <Wishlist />

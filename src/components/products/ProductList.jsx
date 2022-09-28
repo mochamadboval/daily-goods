@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import classes from "./ProductList.module.css";
 
 import ratingIcon from "../../assets/rating.svg";
@@ -8,7 +10,7 @@ const ProductList = (props) => {
       {props.showProducts.map((product) => (
         <article key={product.id}>
           <img src={product.images[0]} alt={product.title} loading="lazy" />
-          <h3>{product.title}</h3>
+          <h3><Link to={`/product/${product.id}`}>{product.title}</Link></h3>
           <div className={classes.products__summary}>
             <p>
               <b>${product.price}</b>
