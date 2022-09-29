@@ -1,13 +1,13 @@
-import { Fragment } from "react";
+import React, { Fragment, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
-import Account from "./pages/Account";
-import Cart from "./pages/Cart";
-import Categories from "./pages/Categories";
-import Category from "./pages/Category";
-import Home from "./pages/Home";
-import Product from "./pages/Product";
-import Wishlist from "./pages/Wishlist";
+const Account = React.lazy(() => import("./pages/Account"));
+const Cart = React.lazy(() => import("./pages/Cart"));
+const Categories = React.lazy(() => import("./pages/Categories"));
+const Category = React.lazy(() => import("./pages/Category"));
+const Home = React.lazy(() => import("./pages/Home"));
+const Product = React.lazy(() => import("./pages/Product"));
+const Wishlist = React.lazy(() => import("./pages/Wishlist"));
 
 import Header from "./components/Header";
 import Menu from "./components/Menu";
@@ -17,32 +17,34 @@ const App = () => {
     <Fragment>
       <Header />
       <main>
-        <Switch>
-          <Route path="/" exact>
-            <Redirect to="/home" />
-          </Route>
-          <Route path="/account">
-            <Account />
-          </Route>
-          <Route path="/cart">
-            <Cart />
-          </Route>
-          <Route path="/categories" exact>
-            <Categories />
-          </Route>
-          <Route path="/categories/:category">
-            <Category />
-          </Route>
-          <Route path="/home">
-            <Home />
-          </Route>
-          <Route path="/product/:productId">
-            <Product />
-          </Route>
-          <Route path="/wishlist">
-            <Wishlist />
-          </Route>
-        </Switch>
+        <Suspense fallback={<p className="loading">Loading ...</p>}>
+          <Switch>
+            <Route path="/" exact>
+              <Redirect to="/home" />
+            </Route>
+            <Route path="/account">
+              <Account />
+            </Route>
+            <Route path="/cart">
+              <Cart />
+            </Route>
+            <Route path="/categories" exact>
+              <Categories />
+            </Route>
+            <Route path="/categories/:category">
+              <Category />
+            </Route>
+            <Route path="/home">
+              <Home />
+            </Route>
+            <Route path="/product/:productId">
+              <Product />
+            </Route>
+            <Route path="/wishlist">
+              <Wishlist />
+            </Route>
+          </Switch>
+        </Suspense>
       </main>
       <Menu />
     </Fragment>
