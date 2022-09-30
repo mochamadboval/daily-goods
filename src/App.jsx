@@ -1,5 +1,6 @@
-import React, { Fragment, Suspense } from "react";
+import React, { Fragment, Suspense, useContext } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import AuthContext from "./store/auth-context";
 
 const Account = React.lazy(() => import("./pages/Account"));
 const Cart = React.lazy(() => import("./pages/Cart"));
@@ -13,6 +14,8 @@ import Header from "./components/Header";
 import Menu from "./components/Menu";
 
 const App = () => {
+  const authCtx = useContext(AuthContext);
+
   return (
     <Fragment>
       <Header />
@@ -25,9 +28,11 @@ const App = () => {
             <Route path="/account">
               <Account />
             </Route>
-            <Route path="/cart">
-              <Cart />
-            </Route>
+            {authCtx.isLoggedIn && (
+              <Route path="/cart">
+                <Cart />
+              </Route>
+            )}
             <Route path="/categories" exact>
               <Categories />
             </Route>
@@ -41,7 +46,11 @@ const App = () => {
               <Product />
             </Route>
             <Route path="/wishlist">
-              <Wishlist />
+              {authCtx.isLoggedIn && <Wishlist />}
+              {!authCtx.isLoggedIn && <Redirect to="/account" />}
+            </Route>
+            <Route path="*">
+              <Redirect to="/" />
             </Route>
           </Switch>
         </Suspense>
