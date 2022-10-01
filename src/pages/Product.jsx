@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import AuthContext from "../store/auth-context";
 
 import classes from "./Product.module.css";
 
 import wishlistIcon from "../assets/wishlist.svg";
+import wishlistedIcon from "../assets/wishlisted.svg";
 
 const Product = () => {
+  const authCtx = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [isWishlisted, setIsWishlisted] = useState(false);
   const [product, setProduct] = useState([]);
 
   const params = useParams();
@@ -24,7 +28,50 @@ const Product = () => {
     };
 
     fetchProduct();
+
+    let isProductWishlisted = JSON.parse(
+      localStorage.getItem(`dgWishlist${authCtx.id}`)
+    );
+    if (isProductWishlisted === null || isProductWishlisted.length === 0) {
+      return;
+    }
+
+    let filteredProduct = isProductWishlisted.filter(
+      (item) => item.id.toString() === productId
+    );
+    if (filteredProduct.length !== 0) {
+      setIsWishlisted(true);
+    }
   }, []);
+
+  const wishlistHandler = () => {
+    let savedWishlist = JSON.parse(
+      localStorage.getItem(`dgWishlist${authCtx.id}`)
+    );
+    if (savedWishlist === null) {
+      savedWishlist = [];
+    }
+
+    const filteredWishlist = savedWishlist.filter(
+      (item) => item.id === product.id
+    );
+
+    if (filteredWishlist.length === 0) {
+      savedWishlist.push(product);
+
+      setIsWishlisted(true);
+    } else {
+      const filtered = savedWishlist.filter((item) => item.id !== product.id);
+      savedWishlist = filtered;
+
+      setIsWishlisted(false);
+    }
+
+    localStorage.setItem(
+      `dgWishlist${authCtx.id}`,
+      JSON.stringify(savedWishlist)
+    );
+  };
 
   if (isLoading) {
     return <p className="loading">Loading ...</p>;
@@ -44,7 +91,15 @@ const Product = () => {
           <p>
             <b>${product.price}</b>
           </p>
-          <img src={wishlistIcon} height="24px" alt="" />
+          {authCtx.isLoggedIn && (
+            <button onClick={wishlistHandler}>
+              <img
+                src={isWishlisted ? wishlistedIcon : wishlistIcon}
+                height="24px"
+                alt=""
+              />
+            </button>
+          )}
         </div>
         <h2>{product.title}</h2>
         <p>{product.description}</p>

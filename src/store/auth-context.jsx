@@ -9,7 +9,7 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
-  const user = JSON.parse(localStorage.getItem("dgUser"));
+  const user = JSON.parse(localStorage.getItem(`dgUser`));
   let initialToken;
   let initialUserId;
 
@@ -25,6 +25,7 @@ export const AuthContextProvider = (props) => {
 
   const loginHandler = (token, id) => {
     setToken(token);
+    setUserId(id);
 
     const user = JSON.stringify({
       token,
@@ -35,6 +36,8 @@ export const AuthContextProvider = (props) => {
 
   const logoutHandler = () => {
     setToken(null);
+    setUserId(null);
+
     localStorage.removeItem("dgUser");
   };
 

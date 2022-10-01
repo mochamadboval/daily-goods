@@ -1,6 +1,3 @@
-.product {
-}
-
 .product__images {
   display: flex;
   gap: 10px;
@@ -48,6 +45,12 @@
   font-size: 1.5rem;
 }
 
+.product__wishlist > button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .product__detail > h2 {
   font-size: 1.125rem;
   font-weight: 400;
@@ -85,7 +88,6 @@
 }
 
 .product__info p > a {
-  /* border-bottom: 2px solid var(--color-black); */
   color: var(--color-black);
   text-decoration: underline solid 2px;
 }
