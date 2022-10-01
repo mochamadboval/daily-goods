@@ -1,0 +1,35 @@
+.account__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-block: 10px;
+}
+
+.account__form > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.account__form > div > input {
+  background-color: var(--color-white-100);
+  border: 1px solid var(--color-shadow);
+  font-size: 0.875rem;
+  padding: 10px;
+}
+
+.account__form > button {
+  background-color: var(--color-green);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 2px var(--color-shadow);
+  color: var(--color-white);
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.account__form > button[disabled] {
+  background-color: var(--color-shadow);
+  color: var(--color-black);
+  cursor: not-allowed;
+}

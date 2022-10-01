@@ -1,0 +1,35 @@
+.user {
+  margin-top: 20px;
+}
+
+.user > img {
+  background-color: var(--color-white-100);
+  border-radius: 50%;
+  box-shadow: 0 2px 2px var(--color-shadow);
+  margin-inline: auto;
+  width: 50%;
+}
+
+.user > h3 {
+  margin-top: 20px;
+}
+
+.user > h3 > span {
+  font-weight: 400;
+}
+
+.user > p {
+  color: var(--color-white-400);
+}
+
+.logout {
+  background-color: var(--color-red);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 2px var(--color-shadow);
+  color: var(--color-white);
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+}

@@ -1,37 +1,18 @@
-import { Fragment, useContext, useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Fragment, useContext, useState } from "react";
 import AuthContext from "../store/auth-context";
+
+import LoginForm from "../components/account/LoginForm";
+import SignUpForm from "../components/account/SignUpForm";
+import User from "../components/account/User";
 
 import classes from "./Account.module.css";
 
 const Account = () => {
-  const history = useHistory();
-  const username = useRef();
-  const password = useRef();
   const authCtx = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoginForm, setIsLoginForm] = useState(true);
 
-  const loginHandler = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-
-    const response = await fetch("https://dummyjson.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: username.current.value,
-        password: password.current.value,
-      }),
-    });
-    const data = await response.json();
-    authCtx.login(data.token, data.id);
-
-    setIsLoading(false);
-    history.replace("/");
-  };
-
-  const logoutHandler = () => {
-    authCtx.logout();
+  const switchFormHandler = () => {
+    setIsLoginForm((prevState) => !prevState);
   };
 
   return (
@@ -39,32 +20,21 @@ const Account = () => {
       <article>
         {!authCtx.isLoggedIn && (
           <Fragment>
-            <h2>LOGIN</h2>
-            <form className={classes.account__form} onSubmit={loginHandler}>
-              <div>
-                <label htmlFor="username">
-                  <b>Username</b>
-                </label>
-                <input type="text" id="username" ref={username} required />
-              </div>
-              <div>
-                <label htmlFor="password">
-                  <b>Password</b>
-                </label>
-                <input type="password" id="password" ref={password} required />
-              </div>
-              {isLoading ? (
-                <button disabled>Please wait ...</button>
-              ) : (
-                <button>Login</button>
-              )}
-            </form>
+            {isLoginForm && <LoginForm />}
+            {!isLoginForm && <SignUpForm />}
+            <p>or</p>
+            <button
+              className={classes["switch-button"]}
+              onClick={switchFormHandler}
+            >
+              {isLoginForm ? "Create Account" : "Login"}
+            </button>
           </Fragment>
         )}
         {authCtx.isLoggedIn && (
-          <button className={classes.logout} onClick={logoutHandler}>
-            Logout
-          </button>
+          <Fragment>
+            <User />
+          </Fragment>
         )}
       </article>
     </div>
