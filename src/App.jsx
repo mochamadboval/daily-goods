@@ -10,8 +10,8 @@ const Home = React.lazy(() => import("./pages/Home"));
 const Product = React.lazy(() => import("./pages/Product"));
 const Wishlist = React.lazy(() => import("./pages/Wishlist"));
 
-import Header from "./components/Header";
-import Menu from "./components/Menu";
+import Header from "./components/navigation/Header";
+import Menu from "./components/navigation/Menu";
 
 const App = () => {
   const authCtx = useContext(AuthContext);
@@ -19,6 +19,7 @@ const App = () => {
   return (
     <Fragment>
       <Header />
+      <Menu />
       <main>
         <Suspense fallback={<p className="loading">Loading ...</p>}>
           <Switch>
@@ -55,7 +56,6 @@ const App = () => {
           </Switch>
         </Suspense>
       </main>
-      <Menu />
     </Fragment>
   );
 };

@@ -1,15 +1,16 @@
 import { Fragment, useEffect, useState } from "react";
 
+import useLimit from "../hooks/use-limit";
+
+import LoadMore from "../components/navigation/LoadMore";
 import ProductList from "../components/products/ProductList";
-import LoadMore from "../components/LoadMore";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isAllLoaded, setIsAllLoaded] = useState(false);
-  const [limit, setLimit] = useState(20);
   const [products, setProducts] = useState([]);
-
   const { products: showProducts, total } = products;
+
+  const { isAllLoaded, limit, increaseLimitHandler } = useLimit(total);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,19 +25,6 @@ const Home = () => {
 
     fetchProducts();
   }, [limit]);
-
-  const increaseLimitHandler = () => {
-    setLimit((state) => {
-      const count = state + 20;
-      console.log(count);
-      if (count > total) {
-        setIsAllLoaded(true);
-        return state;
-      }
-
-      return count;
-    });
-  };
 
   if (isLoading) {
     return <p className="loading">Loading ...</p>;

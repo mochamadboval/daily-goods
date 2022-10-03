@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import AuthContext from "../store/auth-context";
+import AuthContext from "../../store/auth-context";
 
 import classes from "./Header.module.css";
 
-import cartIcon from "../assets/cart.svg";
+import cartIcon from "../../assets/cart.svg";
 
 const Header = () => {
   const authCtx = useContext(AuthContext);

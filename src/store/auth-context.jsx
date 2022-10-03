@@ -9,7 +9,7 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
-  const user = JSON.parse(localStorage.getItem(`dgUser`));
+  const user = JSON.parse(localStorage.getItem("dgUser"));
   let initialToken;
   let initialUserId;
 
