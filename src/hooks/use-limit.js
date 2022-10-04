@@ -5,10 +5,12 @@ const useLimit = (total) => {
   const [limit, setLimit] = useState(18);
 
   useEffect(() => {
-    if (total <= 18) {
+    if (total <= limit) {
       setIsAllLoaded(true);
-    } 
-  }, [total]);
+    } else {
+      setIsAllLoaded(false);
+    }
+  }, [total, limit]);
 
   const increaseLimitHandler = () => {
     setLimit((prevState) => {

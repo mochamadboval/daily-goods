@@ -1,30 +1,22 @@
 import { Fragment, useEffect, useState } from "react";
 
+import useFetch from "../hooks/use-fetch";
 import useLimit from "../hooks/use-limit";
 
 import LoadMore from "../components/navigation/LoadMore";
 import ProductList from "../components/products/ProductList";
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [products, setProducts] = useState([]);
+  const [initialTotal, setInitialTotal] = useState(0);
+  const { isAllLoaded, limit, increaseLimitHandler } = useLimit(initialTotal);
+  const { products, isLoading } = useFetch(
+    `https://dummyjson.com/products?limit=${limit}`
+  );
   const { products: showProducts, total } = products;
 
-  const { isAllLoaded, limit, increaseLimitHandler } = useLimit(total);
-
   useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await fetch(
-        `https://dummyjson.com/products?limit=${limit}`
-      );
-      const data = await response.json();
-
-      setProducts(data);
-      setIsLoading(false);
-    };
-
-    fetchProducts();
-  }, [limit]);
+    setInitialTotal(total);
+  }, [total]);
 
   if (isLoading) {
     return <p className="loading">Loading ...</p>;
