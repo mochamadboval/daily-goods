@@ -13,10 +13,10 @@ const Category = () => {
 
   const [initialTotal, setInitialTotal] = useState(0);
   const { isAllLoaded, limit, increaseLimitHandler } = useLimit(initialTotal);
-  const { products, isLoading } = useFetch(
+  const { data, isLoading } = useFetch(
     `https://dummyjson.com/products/category/${category}?limit=${limit}`
   );
-  const { products: showProducts, total } = products;
+  const { products: showProducts, total } = data;
 
   useEffect(() => {
     setInitialTotal(total);

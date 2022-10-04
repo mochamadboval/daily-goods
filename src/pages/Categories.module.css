@@ -7,11 +7,6 @@
 
 .categories > article {
   align-items: center;
-  background-color: var(--color-white);
-  border-radius: 10px;
-  box-shadow: 0 2px 2px var(--color-shadow);
-  display: flex;
-  flex: 0 0 calc(100% / 2 - 5px);
   padding: 15px;
 }
 
