@@ -1,43 +1,48 @@
+import firebase from "../firebase";
 import { useEffect, useState } from "react";
 
 const useWishlist = (userId, productId, product) => {
-  const [wishlisted, setWishlisted] = useState([]);
+  const [initialLoad, setInitialLoad] = useState(true);
   const [isWishlisted, setIsWishlisted] = useState(false);
 
+  const fetchWishlisted = () => {
+    const wishlistRef = firebase.database().ref(`/wishlist-${userId}`);
+    wishlistRef.once("value", (snapshot) => {
+      const wishlisted = snapshot.val();
+      if (wishlisted === null) {
+        wishlistRef.push({ id: false });
+        return;
+      }
+      for (let key in wishlisted) {
+        if (initialLoad) {
+          setInitialLoad(false);
+
+          if (wishlisted[key].id === +productId) {
+            setIsWishlisted(true);
+            return;
+          }
+        } else {
+          if (wishlisted[key].id === +productId) {
+            setIsWishlisted(false);
+
+            wishlistRef.child(key).remove();
+            return;
+          }
+        }
+      }
+      if (!initialLoad) {
+        wishlistRef.push(product);
+        setIsWishlisted(true);
+      }
+    });
+  };
+
   useEffect(() => {
-    let savedWishlist = JSON.parse(localStorage.getItem(`dgWishlist${userId}`));
-
-    if (savedWishlist === null) {
-      savedWishlist = [];
-    }
-
-    setWishlisted(savedWishlist);
-
-    let filtered = savedWishlist.filter((item) => item.id === +productId);
-
-    if (filtered.length !== 0) {
-      setIsWishlisted(true);
-    }
+    fetchWishlisted();
   }, []);
 
   const wishlistHandler = () => {
-    setWishlisted((prevState) => {
-      let filtered = prevState.filter((item) => item.id === product.id);
-      if (filtered.length === 0) {
-        prevState.push(product);
-
-        setIsWishlisted(true);
-      } else {
-        const filter = filtered.filter((item) => item.id !== product.id);
-        prevState = filter;
-
-        setIsWishlisted(false);
-      }
-
-      localStorage.setItem(`dgWishlist${userId}`, JSON.stringify(prevState));
-
-      return prevState;
-    });
+    fetchWishlisted();
   };
 
   return { isWishlisted, wishlistHandler };
