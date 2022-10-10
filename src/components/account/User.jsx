@@ -3,21 +3,33 @@ import AuthContext from "../../store/auth-context";
 
 import classes from "./User.module.css";
 
+import profileIcon from "../../assets/profile.jpg";
+
 const User = () => {
   const authCtx = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const response = await fetch(`https://dummyjson.com/users/${authCtx.id}`);
-      const data = await response.json();
-
-      setUser(data);
-      setIsLoading(false);
-    };
-
-    fetchUser();
+    fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAGfdpzLv7gJqnBtIWyUbJESHfDCOpvZi8",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          idToken: authCtx.token,
+        }),
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setUser(data.users[0]);
+        setIsLoading(false);
+      });
   }, []);
 
   const logoutHandler = () => {
@@ -32,9 +44,9 @@ const User = () => {
     <Fragment>
       <h2>Profile</h2>
       <section className={classes.user}>
-        <img src={user.image} alt={`${user.firstName} ${user.lastName}`} />
+        <img src={profileIcon} alt={user.displayName} />
         <h3>
-          <span>Hi,</span> {user.firstName} {user.lastName}
+          <span>Hi,</span> {user.displayName}
         </h3>
         <p>{user.email}</p>
       </section>

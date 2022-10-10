@@ -28,8 +28,8 @@
   padding: 10px;
 }
 
-.account__form > button[disabled] {
+/* .account__form > button[disabled] {
   background-color: var(--color-shadow);
   color: var(--color-black);
   cursor: not-allowed;
-}
+} */

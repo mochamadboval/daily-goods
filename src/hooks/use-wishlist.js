@@ -30,10 +30,9 @@ const useWishlist = (userId, productId, product) => {
           }
         }
       }
-      if (!initialLoad) {
-        wishlistRef.push(product);
-        setIsWishlisted(true);
-      }
+      
+      wishlistRef.push(product);
+      setIsWishlisted(true);
     });
   };
 

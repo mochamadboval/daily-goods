@@ -1,33 +1,27 @@
-import { Fragment, useContext, useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
-import AuthContext from "../../store/auth-context";
+import { Fragment, useRef } from "react";
+
+import useAuth from "../../hooks/use-auth";
 
 import classes from "./LoginForm.module.css";
 
 const LoginForm = () => {
-  const history = useHistory();
-  const username = useRef();
+  const email = useRef();
   const password = useRef();
-  const authCtx = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const { fetchAuth } = useAuth();
 
-  const loginHandler = async (event) => {
+  const loginHandler = (event) => {
     event.preventDefault();
-    setIsLoading(true);
 
-    const response = await fetch("https://dummyjson.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: username.current.value,
-        password: password.current.value,
-      }),
-    });
-    const data = await response.json();
-    authCtx.login(data.token, data.id);
+    const user = {
+      email: email.current.value,
+      password: password.current.value,
+      returnSecureToken: true,
+    };
 
-    setIsLoading(false);
-    // history.replace("/");
+    fetchAuth(
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAGfdpzLv7gJqnBtIWyUbJESHfDCOpvZi8",
+      user
+    );
   };
 
   return (
@@ -35,10 +29,10 @@ const LoginForm = () => {
       <h2>LOGIN</h2>
       <form className={classes.account__form} onSubmit={loginHandler}>
         <div>
-          <label htmlFor="username">
-            <b>Username</b>
+          <label htmlFor="email">
+            <b>Email</b>
           </label>
-          <input type="text" id="username" ref={username} required />
+          <input type="text" id="email" ref={email} required />
         </div>
         <div>
           <label htmlFor="password">
@@ -46,11 +40,7 @@ const LoginForm = () => {
           </label>
           <input type="password" id="password" ref={password} required />
         </div>
-        {isLoading ? (
-          <button disabled>Please wait ...</button>
-        ) : (
-          <button>Login</button>
-        )}
+        <button>Login</button>
       </form>
     </Fragment>
   );
