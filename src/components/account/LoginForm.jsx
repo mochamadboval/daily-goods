@@ -19,7 +19,9 @@ const LoginForm = () => {
     };
 
     fetchAuth(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAGfdpzLv7gJqnBtIWyUbJESHfDCOpvZi8",
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
+        import.meta.env.VITE_API_KEY
+      }`,
       user
     );
   };

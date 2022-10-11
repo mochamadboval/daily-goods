@@ -22,7 +22,9 @@ const SignUpForm = () => {
     };
 
     fetchAuth(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAGfdpzLv7gJqnBtIWyUbJESHfDCOpvZi8",
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
+        import.meta.env.VITE_API_KEY
+      }`,
       user
     );
   };

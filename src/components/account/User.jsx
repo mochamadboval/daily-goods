@@ -12,7 +12,9 @@ const User = () => {
 
   useEffect(() => {
     fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAGfdpzLv7gJqnBtIWyUbJESHfDCOpvZi8",
+      `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${
+        import.meta.env.VITE_API_KEY
+      }`,
       {
         method: "POST",
         headers: {

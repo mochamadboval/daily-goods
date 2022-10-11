@@ -1,7 +1,7 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAGfdpzLv7gJqnBtIWyUbJESHfDCOpvZi8",
+  apiKey: import.meta.env.VITE_API_KEY,
   authDomain: "daily-goods-4869.firebaseapp.com",
   databaseURL:
     "https://daily-goods-4869-default-rtdb.asia-southeast1.firebasedatabase.app",
