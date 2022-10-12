@@ -28,7 +28,10 @@ const useAuth = () => {
         }
       })
       .then((data) => {
-        authCtx.login(data.idToken, data.localId);
+        const expiration = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        );
+        authCtx.login(data.idToken, data.localId, expiration.toISOString());
         history.replace("/account");
       })
       .catch((error) => {

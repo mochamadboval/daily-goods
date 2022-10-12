@@ -4,7 +4,7 @@ const AuthContext = React.createContext({
   token: "",
   id: "",
   isLoggedIn: false,
-  login: (token, id) => {},
+  login: (token, id, expiration) => {},
   logout: () => {},
 });
 
@@ -12,10 +12,12 @@ export const AuthContextProvider = (props) => {
   const user = JSON.parse(localStorage.getItem("dgUser"));
   let initialToken;
   let initialUserId;
+  let initialExpiration = 0;
 
   if (user) {
     initialToken = user.token;
     initialUserId = user.id;
+    initialExpiration = user.expiration;
   }
 
   const [token, setToken] = useState(initialToken);
@@ -23,23 +25,31 @@ export const AuthContextProvider = (props) => {
 
   const userIsLoggedIn = !!token;
 
-  const loginHandler = (token, id) => {
-    setToken(token);
-    setUserId(id);
-
-    const user = JSON.stringify({
-      token,
-      id,
-    });
-    localStorage.setItem("dgUser", user);
-  };
-
   const logoutHandler = () => {
     setToken(null);
     setUserId(null);
 
     localStorage.removeItem("dgUser");
   };
+
+  const loginHandler = (token, id, expiration) => {
+    setToken(token);
+    setUserId(id);
+
+    const user = JSON.stringify({
+      token,
+      id,
+      expiration: new Date(expiration).getTime(),
+    });
+    localStorage.setItem("dgUser", user);
+  };
+
+  const currentTime = new Date().getTime();
+  const remainingTime = initialExpiration - currentTime;
+
+  setTimeout(() => {
+    logoutHandler();
+  }, remainingTime);
 
   const contextValue = {
     token,
