@@ -2,7 +2,8 @@ import { Fragment, useRef } from "react";
 
 import useAuth from "../../hooks/use-auth";
 
-import classes from "./LoginForm.module.css";
+import Form from "../UI/Form";
+import FormInput from "../UI/FormInput";
 
 const LoginForm = () => {
   const email = useRef();
@@ -29,21 +30,15 @@ const LoginForm = () => {
   return (
     <Fragment>
       <h2>LOGIN</h2>
-      <form className={classes.account__form} onSubmit={loginHandler}>
-        <div>
-          <label htmlFor="email">
-            <b>Email</b>
-          </label>
-          <input type="text" id="email" ref={email} required />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <b>Password</b>
-          </label>
-          <input type="password" id="password" ref={password} required />
-        </div>
-        <button>Login</button>
-      </form>
+      <Form name="Login" onSubmit={loginHandler}>
+        <FormInput label="email" name="Email" type="email" ref={email} />
+        <FormInput
+          label="password"
+          name="Password"
+          type="password"
+          ref={password}
+        />
+      </Form>
     </Fragment>
   );
 };

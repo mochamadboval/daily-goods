@@ -1,0 +1,11 @@
+.input {
+  display: flex;
+  flex-direction: column;
+}
+
+.input > input {
+  background-color: var(--color-white-100);
+  border: 1px solid var(--color-shadow);
+  font-size: 0.875rem;
+  padding: 10px;
+}

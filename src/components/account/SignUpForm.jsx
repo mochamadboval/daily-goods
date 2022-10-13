@@ -2,7 +2,8 @@ import { Fragment, useRef } from "react";
 
 import useAuth from "../../hooks/use-auth";
 
-import classes from "./SignUpForm.module.css";
+import Form from "../UI/Form";
+import FormInput from "../UI/FormInput";
 
 const SignUpForm = () => {
   const email = useRef();
@@ -11,7 +12,7 @@ const SignUpForm = () => {
   const lastName = useRef();
   const { fetchAuth } = useAuth();
 
-  const signUpHandler = async (event) => {
+  const signUpHandler = (event) => {
     event.preventDefault();
 
     const user = {
@@ -32,33 +33,27 @@ const SignUpForm = () => {
   return (
     <Fragment>
       <h2>SIGN UP</h2>
-      <form className={classes.account__form} onSubmit={signUpHandler}>
-        <div>
-          <label htmlFor="email">
-            <b>Email</b>
-          </label>
-          <input type="email" id="email" ref={email} required />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <b>Password</b>
-          </label>
-          <input type="password" id="password" ref={password} required />
-        </div>
-        <div>
-          <label htmlFor="firstName">
-            <b>First Name</b>
-          </label>
-          <input type="text" id="firstName" ref={firstName} required />
-        </div>
-        <div>
-          <label htmlFor="lastName">
-            <b>Last Name</b>
-          </label>
-          <input type="text" id="lastName" ref={lastName} required />
-        </div>
-        <button>Sign Up</button>
-      </form>
+      <Form name="Sign Up" onSubmit={signUpHandler}>
+        <FormInput label="email" name="Email" type="email" ref={email} />
+        <FormInput
+          label="password"
+          name="Password"
+          type="password"
+          ref={password}
+        />
+        <FormInput
+          label="firstName"
+          name="First Name"
+          type="text"
+          ref={firstName}
+        />
+        <FormInput
+          label="lastName"
+          name="Last Name"
+          type="text"
+          ref={lastName}
+        />
+      </Form>
     </Fragment>
   );
 };
