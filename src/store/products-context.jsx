@@ -6,6 +6,7 @@ const ProductsContext = React.createContext({
   cart: 0,
   limit: 0,
   totalPrice: 0,
+  loadCart: () => {},
   increaseCart: () => {},
   decreaseCart: () => {},
   increaseLimit: (limit) => {},
@@ -18,7 +19,7 @@ export const ProductsContextProvider = (props) => {
   const [limit, setLimit] = useState(18);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  useEffect(() => {
+  const loadCart = () => {
     const productRef = firebase.database().ref(`/cart-${authCtx.id}`);
     productRef.once("value", (snapshot) => {
       const products = snapshot.val();
@@ -38,6 +39,10 @@ export const ProductsContextProvider = (props) => {
         setCart(cartItems);
       }
     });
+  };
+
+  useEffect(() => {
+    loadCart();
   }, []);
 
   const increaseCart = () => {
@@ -66,6 +71,7 @@ export const ProductsContextProvider = (props) => {
     cart,
     limit,
     totalPrice,
+    loadCart,
     increaseCart,
     decreaseCart,
     increaseLimit,

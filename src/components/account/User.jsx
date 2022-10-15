@@ -1,5 +1,6 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import AuthContext from "../../store/auth-context";
+import ProductsContext from "../../store/products-context";
 
 import classes from "./User.module.css";
 
@@ -7,10 +8,13 @@ import profileIcon from "../../assets/profile.jpg";
 
 const User = () => {
   const authCtx = useContext(AuthContext);
+  const productsCtx = useContext(ProductsContext);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState({});
 
   useEffect(() => {
+    productsCtx.loadCart();
+
     fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${
         import.meta.env.VITE_API_KEY
