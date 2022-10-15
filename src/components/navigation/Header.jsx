@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
+import ProductsContext from "../../store/products-context";
 
 import classes from "./Header.module.css";
 
@@ -8,6 +9,7 @@ import cartIcon from "../../assets/cart.svg";
 
 const Header = () => {
   const authCtx = useContext(AuthContext);
+  const productsCtx = useContext(ProductsContext);
 
   return (
     <header className={classes.header}>
@@ -23,6 +25,7 @@ const Header = () => {
           to="/cart"
         >
           <img src={cartIcon} height="24px" alt="" />
+          <p>{productsCtx.cart}</p>
         </NavLink>
       )}
     </header>

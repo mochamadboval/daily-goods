@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import ProductsContext from "../store/products-context";
 
 const useFetch = (url) => {
+  const productsCtx = useContext(ProductsContext);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -18,7 +20,7 @@ const useFetch = (url) => {
 
   useEffect(() => {
     fetchData();
-  }, [url]);
+  }, [url, productsCtx.cart]);
 
   return { data, isLoading };
 };

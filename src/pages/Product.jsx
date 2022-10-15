@@ -1,6 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import firebase from "../firebase";
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import AuthContext from "../store/auth-context";
+import ProductsContext from "../store/products-context";
 
 import useFetch from "../hooks/use-fetch";
 import useWishlist from "../hooks/use-wishlist";
@@ -14,6 +16,7 @@ const Product = () => {
   const { productId } = params;
 
   const authCtx = useContext(AuthContext);
+  const productsCtx = useContext(ProductsContext);
   const { data: product, isLoading } = useFetch(
     `https://dummyjson.com/products/${productId}`
   );
@@ -22,6 +25,32 @@ const Product = () => {
     productId,
     product
   );
+
+  const addToCartHandler = () => {
+    const productRef = firebase.database().ref(`/cart-${authCtx.id}`);
+    productRef.once("value", (snapshot) => {
+      const products = snapshot.val();
+
+      for (const key in products) {
+        if (products[key].id === product.id) {
+          productRef.child(key).update({ item: (products[key].item += 1) });
+          productsCtx.increaseCart();
+          return;
+        }
+      }
+
+      const productToCart = {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image: product.images[0],
+        brand: product.brand,
+        item: 1,
+      };
+      productRef.push(productToCart);
+      productsCtx.increaseCart();
+    });
+  };
 
   if (isLoading) {
     return <p className="loading">Loading ...</p>;
@@ -75,6 +104,9 @@ const Product = () => {
             </p>
           </section>
         </aside>
+        <button onClick={addToCartHandler}>
+          <strong>Add to Cart</strong>
+        </button>
       </div>
     </article>
   );
