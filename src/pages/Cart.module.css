@@ -11,6 +11,13 @@
   padding: 10px;
 }
 
+.products > article:nth-last-child(1) {
+  background-color: var(--color-green);
+  color: var(--color-white);
+  font-weight: 700;
+  justify-content: space-between;
+}
+
 .products > article > img {
   border-radius: 10px;
   box-shadow: 0 2px 2px var(--color-shadow);
@@ -65,11 +72,4 @@
 
 .product__amount > p {
   font-size: 0.75rem;
-}
-
-.products__total {
-  background-color: var(--color-green);
-  color: var(--color-white);
-  font-weight: 700;
-  justify-content: space-between;
 }
