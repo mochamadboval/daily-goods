@@ -4,6 +4,7 @@ import AuthContext from "../store/auth-context";
 import useFetch from "../hooks/use-fetch";
 
 import ProductList from "../components/products/ProductList";
+import SEO from "../components/SEO";
 
 const Wishlist = () => {
   const authCtx = useContext(AuthContext);
@@ -36,6 +37,11 @@ const Wishlist = () => {
 
   return (
     <Fragment>
+      <SEO
+        title="Wishlist"
+        description="Wishlist page of Daily Goods."
+        page="wishlist"
+      />
       <h2 className="page-title">Wishlist</h2>
       {!isWishlistEmpty && <ProductList showProducts={products} />}
       {isWishlistEmpty && <p className="loading">No products.</p>}

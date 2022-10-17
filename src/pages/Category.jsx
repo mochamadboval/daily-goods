@@ -6,10 +6,18 @@ import useLimit from "../hooks/use-limit";
 
 import LoadMore from "../components/navigation/LoadMore";
 import ProductList from "../components/products/ProductList";
+import SEO from "../components/SEO";
 
 const Category = () => {
   const params = useParams();
   const { category } = params;
+  const transformName = category.split("-");
+  for (const index in transformName) {
+    transformName[index] =
+      transformName[index].charAt(0).toUpperCase() +
+      transformName[index].slice(1);
+  }
+  const categoryName = transformName.join(" ");
 
   const [initialTotal, setInitialTotal] = useState(0);
   const { isAllLoaded, limit, increaseLimitHandler } = useLimit(initialTotal);
@@ -28,7 +36,12 @@ const Category = () => {
 
   return (
     <Fragment>
-      <h2 className="page-title">{category.replace("-", " ")}</h2>
+      <SEO
+        title={categoryName}
+        description={`${categoryName} page of Daily Goods.`}
+        page="home"
+      />
+      <h2 className="page-title">{categoryName}</h2>
       <ProductList showProducts={showProducts} />
       {!isAllLoaded && <LoadMore onIncrease={increaseLimitHandler} />}
     </Fragment>

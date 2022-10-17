@@ -1,4 +1,5 @@
-import React, { Fragment, Suspense, useContext } from "react";
+import React, { Suspense, useContext } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { Redirect, Route, Switch } from "react-router-dom";
 import AuthContext from "./store/auth-context";
 
@@ -17,7 +18,7 @@ const App = () => {
   const authCtx = useContext(AuthContext);
 
   return (
-    <Fragment>
+    <HelmetProvider>
       <Header />
       <Menu />
       <main>
@@ -56,7 +57,7 @@ const App = () => {
           </Switch>
         </Suspense>
       </main>
-    </Fragment>
+    </HelmetProvider>
   );
 };
 

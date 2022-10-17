@@ -7,6 +7,8 @@ import ProductsContext from "../store/products-context";
 import useFetch from "../hooks/use-fetch";
 import useWishlist from "../hooks/use-wishlist";
 
+import SEO from "../components/SEO";
+
 import classes from "./Product.module.css";
 import wishlistIcon from "../assets/wishlist.svg";
 import wishlistedIcon from "../assets/wishlisted.svg";
@@ -58,6 +60,11 @@ const Product = () => {
 
   return (
     <article className={classes.product}>
+      <SEO
+        title={product.title}
+        description={`${product.title} page of Daily Goods.`}
+        page={`product/${productId}`}
+      />
       <div className={classes.product__images}>
         {product.images.map((image) => (
           <figure key={image}>

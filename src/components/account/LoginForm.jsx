@@ -2,6 +2,7 @@ import { Fragment, useRef } from "react";
 
 import useAuth from "../../hooks/use-auth";
 
+import SEO from "../SEO";
 import Form from "../UI/Form";
 import FormInput from "../UI/FormInput";
 
@@ -29,6 +30,11 @@ const LoginForm = () => {
 
   return (
     <Fragment>
+      <SEO
+        title="Login"
+        description="Login page of Daily Goods."
+        page="account"
+      />
       <h2>LOGIN</h2>
       <Form name="Login" onSubmit={loginHandler}>
         <FormInput label="email" name="Email" type="email" ref={email} />
