@@ -16,6 +16,7 @@
   color: var(--color-white);
   font-weight: 700;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .products > article > img {

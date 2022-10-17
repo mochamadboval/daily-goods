@@ -90,7 +90,7 @@ const Cart = () => {
               </div>
             </Card>
           ))}
-          <Card classes={classes.products__total}>
+          <Card>
             <p>Total</p>
             <p>${totalPrice}</p>
           </Card>
