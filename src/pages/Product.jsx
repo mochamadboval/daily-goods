@@ -111,9 +111,11 @@ const Product = () => {
             </p>
           </section>
         </aside>
-        <button onClick={addToCartHandler}>
-          <strong>Add to Cart</strong>
-        </button>
+        {authCtx.isLoggedIn && (
+          <button onClick={addToCartHandler}>
+            <strong>Add to Cart</strong>
+          </button>
+        )}
       </div>
     </article>
   );
