@@ -71,7 +71,7 @@ const Product = () => {
             <img
               src={image}
               alt={product.title}
-              loading={index < 1 ? "eager" : "lazy"}
+              loading="lazy"
               fetchpriority={index < 1 ? "high" : "low"}
             />
           </figure>

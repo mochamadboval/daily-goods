@@ -13,7 +13,7 @@ const ProductList = (props) => {
           <img
             src={product.images[0]}
             alt={product.title}
-            loading={index < 6 ? "eager" : "lazy"}
+            loading="lazy"
             fetchpriority={index < 6 ? "high" : "low"}
           />
           <h3>
