@@ -66,9 +66,14 @@ const Product = () => {
         page={`product/${productId}`}
       />
       <div className={classes.product__images}>
-        {product.images.map((image) => (
+        {product.images.map((image, index) => (
           <figure key={image}>
-            <img src={image} alt={product.title} loading="lazy" />
+            <img
+              src={image}
+              alt={product.title}
+              loading={index < 1 ? "eager" : "lazy"}
+              fetchpriority={index < 1 ? "high" : "low"}
+            />
           </figure>
         ))}
       </div>
