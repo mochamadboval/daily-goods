@@ -6,7 +6,7 @@ import useLimit from "../hooks/use-limit";
 
 import LoadMore from "../components/navigation/LoadMore";
 import ProductList from "../components/products/ProductList";
-// import SEO from "../components/SEO";
+import SEO from "../components/SEO";
 
 const Category = () => {
   const params = useParams();
@@ -36,11 +36,11 @@ const Category = () => {
 
   return (
     <Fragment>
-      {/* <SEO
+      <SEO
         title={categoryName}
         description={`${categoryName} page of Daily Goods.`}
         page="home"
-      /> */}
+      />
       <h2 className="page-title">{categoryName}</h2>
       <ProductList showProducts={showProducts} />
       {!isAllLoaded && <LoadMore onIncrease={increaseLimitHandler} />}

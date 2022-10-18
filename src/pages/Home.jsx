@@ -5,7 +5,7 @@ import useLimit from "../hooks/use-limit";
 
 import LoadMore from "../components/navigation/LoadMore";
 import ProductList from "../components/products/ProductList";
-// import SEO from "../components/SEO";
+import SEO from "../components/SEO";
 
 const Home = () => {
   const [initialTotal, setInitialTotal] = useState(0);
@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <Fragment>
-      {/* <SEO title="Home" description="Home page of Daily Goods." page="home" /> */}
+      <SEO title="Home" description="Home page of Daily Goods." page="home" />
       <h2 className="page-title">All Products</h2>
       <ProductList showProducts={showProducts} />
       {!isAllLoaded && <LoadMore onIncrease={increaseLimitHandler} />}
