@@ -6,7 +6,7 @@ import ProductsContext from "../store/products-context";
 import useFetch from "../hooks/use-fetch";
 
 import Card from "../components/UI/Card";
-import SEO from "../components/SEO";
+// import SEO from "../components/SEO";
 
 import classes from "./Cart.module.css";
 
@@ -64,7 +64,7 @@ const Cart = () => {
 
   return (
     <Fragment>
-      <SEO title="Cart" description="Cart page of Daily Goods." page="cart" />
+      {/* <SEO title="Cart" description="Cart page of Daily Goods." page="cart" /> */}
       <h2 className="page-title">Cart</h2>
       {products.length !== 0 ? (
         <div className={classes.products}>

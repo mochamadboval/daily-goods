@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import AuthContext from "../../store/auth-context";
 import ProductsContext from "../../store/products-context";
 
-import SEO from "../SEO";
+// import SEO from "../SEO";
 
 import classes from "./User.module.css";
 
@@ -50,11 +50,11 @@ const User = () => {
 
   return (
     <Fragment>
-      <SEO
+      {/* <SEO
         title="Account"
         description="Account page of Daily Goods."
         page="account"
-      />
+      /> */}
       <h2>Profile</h2>
       <section className={classes.user}>
         <img src={profileIcon} alt={user.displayName} />
