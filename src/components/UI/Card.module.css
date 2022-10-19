@@ -5,3 +5,9 @@
   display: flex;
   flex: 0 0 calc(100% / 2 - 5px);
 }
+
+@media all and (min-width: 640px) {
+  .card {
+    flex: 0 0 calc((100% / 4 - 8px));
+  }
+}

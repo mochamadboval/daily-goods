@@ -103,3 +103,9 @@
   color: var(--color-black);
   text-decoration: underline solid 2px;
 }
+
+@media all and (min-width: 640px) {
+  .product__images > figure {
+    flex: 0 0 calc(100% / 2 - 5px);
+  }
+}

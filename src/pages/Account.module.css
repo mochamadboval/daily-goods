@@ -1,4 +1,6 @@
 .account {
+  margin-inline: auto;
+  max-width: 640px;
   padding: 20px;
 }
 

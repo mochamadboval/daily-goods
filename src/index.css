@@ -100,7 +100,9 @@ button {
 }
 
 main {
+  margin-inline: auto;
   margin-top: 56px;
+  max-width: 960px;
   padding-bottom: 56px;
 }
 

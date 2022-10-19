@@ -6,7 +6,7 @@
 }
 
 .products > article {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   gap: 10px;
   padding: 10px;
 }
@@ -73,4 +73,20 @@
 
 .product__amount > p {
   font-size: 0.75rem;
+}
+
+@media all and (min-width: 640px) {
+  .products {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .products > article {
+    flex: 0 0 calc(100% / 2 - 5px);
+  }
+
+  .products > article:nth-last-child(1) {
+    flex: 0 0 50%;
+    margin-inline: auto;
+  }
 }
